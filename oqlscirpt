@@ -1,0 +1,23 @@
+select map(heap.objects('com.orchowskia.memory.Test1'),   
+function(it){
+  function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+  var visited = [];
+  function calc(instance){
+     var result = sizeof(instance);
+     visited.push(objectid(instance));
+     referees(instance).forEach(function(subinstance){
+       if(contains(visited,objectid(subinstance))){return;}
+       result = result + calc(subinstance);
+     });
+     return result;
+  };
+  return it +"->"+ calc(it)+"B";
+})
+

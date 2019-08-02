@@ -1,0 +1,25 @@
+<html><title>Object Query Language (OQL) query</title>
+<body bgcolor="#ffffff"><center><h1>
+Object Query Language (OQL) query</h1></center>
+<p align='center'><table>
+<tr><td><b>
+<a href='/'>All Classes (excluding platform)</a>
+</b></td>
+<td><b><a href='/oqlhelp/'>OQL Help</a></b></td></tr>
+</table></p>
+<form action='/oql/' method='get'>
+<p align='center'>
+<textarea name='query' cols=80 rows=10>
+select map(heap.objects(&#039;com.orchowskia.memory.Test1&#039;),   &#13;&#10;function(it){&#13;&#10;  function contains(a, obj) {&#13;&#10;    for (var i = 0; i &lt; a.length; i++) {&#13;&#10;        if (a[i] === obj) {&#13;&#10;            return true;&#13;&#10;        }&#13;&#10;    }&#13;&#10;    return false;&#13;&#10;}&#13;&#10;  var visited = [];&#13;&#10;  function calc(instance){&#13;&#10;     var result = sizeof(instance);&#13;&#10;     visited.push(objectid(instance));&#13;&#10;     referees(instance).forEach(function(subinstance){&#13;&#10;       if(contains(visited,objectid(subinstance))){return;}&#13;&#10;       result = result + calc(subinstance);&#13;&#10;     });&#13;&#10;     return result;&#13;&#10;  };&#13;&#10;  return it.toString() +&quot; -&gt; &quot;+ calc(it)+&quot;B&quot;;&#13;&#10;})&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;
+</textarea>
+</p>
+<p align='center'>
+<input type='submit' value='Execute'></input>
+</p>
+</form>
+<table border='1'>
+<tr><td>
+[ com.orchowskia.memory.Test1@0x707200178 -> 459287B, ]
+</td></tr>
+</table>
+</body></html>
