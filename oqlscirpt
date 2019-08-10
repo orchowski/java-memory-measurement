@@ -12,8 +12,12 @@ function(it){
   function calc(instance){
      var result = sizeof(instance);
      visited.push(objectid(instance));
-     referees(instance).forEach(function(subinstance){
-       if(contains(visited,objectid(subinstance))){return;}
+     referees(instance).forEach(function(subinstance){       
+       if(
+       !subinstance ||
+       classof(subinstance) == "class java.lang.Class" ||
+       contains(visited,objectid(subinstance))){return;}
+       
        result = result + calc(subinstance);
      });
      return result;
